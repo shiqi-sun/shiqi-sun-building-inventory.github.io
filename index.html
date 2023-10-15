@@ -10,7 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
   <body>
-{
+    <div id="vis"></div>
+
+    <script>
+        var visualizationSpec = {
+            {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {"url": "https://raw.githubusercontent.com/shiqi-sun/shiqisun.github.io/main/building_inventory.csv"},
   "vconcat": [
@@ -94,6 +98,9 @@
     }
   ]
 }
+        };
+
+        vegaEmbed('#vis', visualizationSpec);
     </script>
-  </body>
+</body>
 </html>
