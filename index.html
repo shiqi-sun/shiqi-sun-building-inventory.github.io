@@ -1,13 +1,20 @@
 <!doctype html>
+<html lang="en">
 <html>
   <head>
-    <title>Welcome to UIUC IS445 Data Visualization Assignment 3!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIUC IS445 Data Visualization Assignment 3</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
   <body>
-      <p>
-      This is an example paragraph. Anything in the <strong>body</strong>
-      tag will appear on the page, just like this <strong>p</strong>
-      tag and its contents.
-      </p>
+    <div id="vis"></div>
+
+    <script type="text/javascript">
+        var spec = "visualization.json";
+        vegaEmbed('#vis', spec);
+    </script>
   </body>
 </html>
