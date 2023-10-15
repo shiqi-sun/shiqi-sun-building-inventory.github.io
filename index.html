@@ -10,10 +10,90 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   </head>
   <body>
-    <div id="vis"></div>
-    <script type="text/javascript">
-        var spec = "visualization.json";
-        vegaEmbed('#vis', spec);
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/shiqi-sun/shiqisun.github.io/main/building_inventory.csv"},
+  "vconcat": [
+    {
+      "mark": "point",
+      "encoding": {
+        "x": {
+          "field": "Year Acquired",
+          "type": "quantitative",
+          "axis": {"title": "Year Acquired"}
+        },
+        "y": {
+          "field": "Year Constructed",
+          "type": "quantitative",
+          "axis": {"title": "Year Constructed"}
+        },
+        "opacity": {"value": 0.5}
+      },
+      "title": "Relationship between Year Acquired and Year Constructed"
+    },
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "Congress Dist", "type": "ordinal", "axis": {"title": "Congressional District"}},
+        "y": {
+          "aggregate": "sum",
+          "field": "Square Footage",
+          "type": "quantitative",
+          "axis": {"title": "Total Square Footage"}
+        }
+      },
+      "title": "Total Square Footage by Congressional District"
+    },
+    {"transform": [
+    {
+      "calculate": "datum['Square Footage'] / datum['Total Floors']",
+      "as": "Avg Sq Ft Per Floor"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "mean",
+          "field": "Avg Sq Ft Per Floor",
+          "as": "Average Sq Ft Per Floor"
+        }
+      ],
+      "groupby": ["Congress Dist"]
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Congress Dist",
+      "type": "ordinal",
+      "title": "Congressional District"
+    },
+    "y": {
+      "field": "Average Sq Ft Per Floor",
+      "type": "quantitative",
+      "title": "Average Square Footage Per Floor"
+    }
+  },
+  "title": "Average Square Footage Per Floor by Congressional District"
+},
+    {
+      "mark": "line",
+      "encoding": {
+        "x": {
+          "field": "Year Acquired",
+          "type": "quantitative",
+          "axis": {"title": "Year Acquired"}
+        },
+        "y": {
+          "field": "Square Footage",
+          "type": "quantitative",
+          "axis": {"title": "Square Footage"}
+        },
+        "color": {"field": "Agency Name", "type": "nominal", "legend": {"title": "Department"}}
+      },
+      "title": "Square Footage for the Five Most Common Departments by Year"
+    }
+  ]
+}
     </script>
   </body>
 </html>
